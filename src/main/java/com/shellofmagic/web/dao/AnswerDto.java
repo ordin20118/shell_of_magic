@@ -21,7 +21,7 @@ public class AnswerDto {
 	private Integer answerId;
 	@Column(nullable = false, length = 500)
 	private String	answer;
-	//@CreationTimestamp
+	@CreationTimestamp
 	private Date	regDate;
 
 }

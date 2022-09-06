@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import lombok.Data;
 
@@ -18,8 +19,9 @@ public class CategoryDto {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer	categoryId;
 	private String 	name;
-	private Date	regDate;
 	@CreationTimestamp
+	private Date	regDate;
+	@LastModifiedDate
 	private Date	updateDate;
 
 }

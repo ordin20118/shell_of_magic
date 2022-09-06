@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="./common/head.html"></th:block>
+<script>
+	$(document).ready(function() {
+	
+		console.log("[Input Category Page]");
+	
+	});
+	
+	function sendData() {
+		
+		var nameVal = $('#categName').val();
+		
+		if(nameVal == null || nameVal == ''){
+			alert('카테고리명을 입력해주세요.');
+			return;
+		}
+		
+		let formJson = {
+				"name": nameVal
+		}
+		formJson = JSON.stringify(formJson);
+		
+		$.ajax({
+		  type: "POST",
+		  url: "/inputCategory",
+		  data: formJson,
+		  success: function(){
+			  alert("카테고리 생성 완료");
+			  location.reload();
+		  },
+		  error:function(request, status, error){
+			  alert("카테고리 생성 실패" + error);
+		  },
+		  //dataType: "json",
+		  contentType : "application/json"
+		});
+	}
+
+</script>
+<body style="text-align: center;">
+	고민 카테고리를 입력해주세요.<br>
+	<form id="categoryForm" method="post" action="#" accept-charset="utf-8">
+		<fieldset>
+			<legend>카테고리 이름</legend>
+			<input type="text" id="categName" name="name" style="width:150px;"><br>
+		</fieldset>
+		<br><br>
+		<input type="button" onclick="sendData()" value="생성"/>
+		<input type="reset" value="지우기"/>
+	</form>	
+</body>
+</html>
