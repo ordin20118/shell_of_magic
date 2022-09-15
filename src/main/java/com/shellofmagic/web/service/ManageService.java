@@ -31,7 +31,6 @@ public class ManageService {
 		answer.setAnswer(answerParam.getAnswer());
 		answerRepoitory.save(answer);
 		
-		// TODO: save category mapping info
 		for(int i=0; i<answerParam.getCategoryList().size(); i++) {
 			CategoryDto categ = answerParam.getCategoryList().get(i);
 			AnswerCategoryDto ac = new AnswerCategoryDto();

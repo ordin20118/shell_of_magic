@@ -8,37 +8,65 @@
 		console.log("[Answer List Page]");
 	
 	});
-
+	
+	function moveToModify(answerId) {
+		alert(answerId);
+	}
 
 </script>
 <body style="text-align: center;">
-	
-	<form method="post" action="#" accept-charset="utf-8">
-		<fieldset>
-			<legend>답변 입력</legend>
-			<input type="text" id="inputAnswer" name="answer" style="width:500px;"><br>
-		</fieldset>			
-		<fieldset>
-			<legend>카테고리 선택</legend>
-			<th:block th:if="${categoryList} != null and ${categoryList.size()} > 0">
-				<th:block th:each="item, index : ${categoryList}">
-					<span th:text="${item.name}"></span><input type="checkbox" name="category" th:value="${item.categoryId}"/><br>
-				</th:block>				
+	<table>
+	    <thead>
+	        <tr>
+	            <th colspan="2">답변</th>
+	            <th colspan="1"></th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr th:each="item : ${answers}" class="tr">
+	        	<!-- <span th:text="${item.answer}"></span> -->
+	        	<td th:text="${item.answer}" class="td"></td>
+	        	<td>
+	        		<input type="button" value="수정" th:onclick="|moveToModify(${item.answerId})|"/>
+	        	</td>
+	        </tr>
+	    </tbody>
+	</table>
+	<nav style="text-align: center;">
+		<span th:text="${T(java.lang.Math).floor(answers.getContent().number/10)*10 + 1}"></span>
+		<!-- <ul class="pagination" th:with="start=${T(Math).floor(answers.getContent().number/10)*10 + 1},
+                    					last=(${start + 9 < answers.totalPages ? start + 9 : answers.totalPages})">
+ 			<th:block th:with="firstUrl=@{/answerList(page=1)},
+ 							prevUrl=@{/answerList(page=${answers.number})},
+ 							nextUrl=@{/answerList(page=${answers.number + 2})},
+ 							lastUrl=@{/answerList(page=${answers.totalPages})}">
+ 				<li>
+ 					<a th:href="${firstUrl}" aria-label="First">
+ 						<span aria-hidden="true">First</span>
+ 					</a>
+ 				</li>
+ 				<li th:class="${answers.first} ? 'disables'">
+ 					<a th:href="${answers.first} ? '#' : #{prevUrl}" aria-label="Previous">
+ 						<span aria-hidden="true">&lt;</span>
+ 					</a>
+ 				</li>
+ 				<li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == answers.number + 1} ? 'active'">
+                        <a th:text="${page}" th:href="@{/answerList(page=${page})}"></a>
+                    </li>
+                    다음 페이지로 
+                    <li th:class="${answers.last} ? 'disabled'">
+                        <a th:href="${answers.last} ? '#' : ${nextAddr}" aria-label="Next">
+                            <span aria-hidden="true">&gt;</span>
+                        </a>
+                    </li>
+                    맨 마지막 페이지로 이동 
+                    <li>
+                        <a th:href="${lastAddr}" aria-label="Last">
+                            <span aria-hidden="true">Last</span>
+                        </a>
+                    </li>
 			</th:block>
-			<!-- 
-			음식<input type="checkbox" name="category" value="1"/><br>
-			고민<input type="checkbox" name="category" value="1"/><br>
-			플렉스<input type="checkbox" name="category" value="1"/><br>
-			연애<input type="checkbox" name="category" value="1"/><br>
-			공통<input type="checkbox" name="category" value="1"/><br>
-			 -->
-		</fieldset>
-		<br><br>
-		
-		<input type="reset" value="모두 해제"/>
-	</form>
-	
-	<input type="button" value="생성" onclick="sendData()"/>
-	
+		</ul> -->
+	</nav>
 </body>
 </html>
