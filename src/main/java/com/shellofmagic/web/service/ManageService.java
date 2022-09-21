@@ -1,8 +1,11 @@
 package com.shellofmagic.web.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.shellofmagic.web.controller.param.AnswerParam;
@@ -34,16 +37,25 @@ public class ManageService {
 		for(int i=0; i<answerParam.getCategoryList().size(); i++) {
 			CategoryDto categ = answerParam.getCategoryList().get(i);
 			AnswerCategoryDto ac = new AnswerCategoryDto();
-			ac.setAnswerId(answer.getAnswerId());
-			ac.setCategoryId(categ.getCategoryId());
+			ac.setAnswerId(answer.getId());
+			ac.setCategory(categ);
 			answerCategoryRepository.save(ac);
 		}
 		
 		return answer;
 	}
 	
-	public List<AnswerDto> getAll() {
-		return answerRepoitory.findAll();
+	public AnswerDto getAnswer(Integer answerId) {
+		Optional<AnswerDto> opAnswer = answerRepoitory.findById(answerId);
+		if(opAnswer.isPresent()) {
+			return opAnswer.get();
+		} else {
+			return null;	
+		}		
+	}
+	
+	public Page<AnswerDto> getAllAnswers(Pageable pageable) {
+		return answerRepoitory.findAll(pageable);
 	}
 
 	public CategoryDto saveCategory(CategoryDto category) {

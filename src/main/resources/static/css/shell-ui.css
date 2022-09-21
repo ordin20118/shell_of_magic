@@ -1,0 +1,39 @@
+@charset "EUC-KR";
+
+
+blockquote:before {
+  content: "\201C";
+  font-size: 3em;
+  font-family: Georgia;
+  color: #bcbcbc;
+  float: left;
+  margin: -5px 10px 0px -10px;
+}
+
+blockquote:after {
+  content: "\201D";
+  font-size: 3em;
+  font-family: Georgia;
+  color: #bcbcbc;
+  float: right;
+  margin: -5px 10px 0px -10px;
+}
+
+
+quote-container:before {
+	content: "\201C";
+  	font-size: 3em;
+  	font-family: Georgia;
+  	color: #bcbcbc;
+  	float: left;
+  	margin: -5px 10px 0px -10px;
+}
+
+quote-container:after {
+	content: "\201C";
+  	font-size: 3em;
+  	font-family: Georgia;
+  	color: #bcbcbc;
+  	float: left;
+  	margin: -5px 10px 0px -10px;
+}

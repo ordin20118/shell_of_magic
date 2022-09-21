@@ -2,9 +2,12 @@ package com.shellofmagic.web.dao;
 
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -16,10 +19,13 @@ public class AnswerCategoryDto {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer	cid;
+	private Integer	id;
 	private Integer answerId;
-	private Integer categoryId;
 	@CreationTimestamp
 	private Date	regDate;
-
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "categoryId", referencedColumnName = "id")
+	private CategoryDto category;
+	
 }

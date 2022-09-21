@@ -9,31 +9,44 @@
 	
 	});
 	
+	function moveToInputAnswer() {
+		location.href = "/inputAnswer";
+	}
+	
 	function moveToModify(answerId) {
-		alert(answerId);
+		location.href = "/modifyAnswer/" + answerId;
 	}
 
 </script>
-<body style="text-align: center;">
-	<table>
-	    <thead>
-	        <tr>
-	            <th colspan="2">답변</th>
-	            <th colspan="1"></th>
-	        </tr>
-	    </thead>
-	    <tbody>
-	        <tr th:each="item : ${answers}" class="tr">
-	        	<!-- <span th:text="${item.answer}"></span> -->
-	        	<td th:text="${item.answer}" class="td"></td>
-	        	<td>
-	        		<input type="button" value="수정" th:onclick="|moveToModify(${item.answerId})|"/>
-	        	</td>
-	        </tr>
-	    </tbody>
-	</table>
+<body style="text-align: center; padding: 25px;">
+
+	<div>
+		<div style="text-align: right;">
+			<button type="button" onclick="moveToInputAnswer()" class="btn btn-outline-success">새로운 답변 등록하기</button>
+		</div>		
+		<br>
+		<table class="table" style="margin: auto;">
+		    <thead class="thead-dark">
+		        <tr>
+		        	<th colspan="1">ID</th>
+		            <th colspan="2">답변</th>
+		            <th colspan="1"></th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		        <tr th:each="item : ${answers}" class="tr">
+		        	<td th:text="${item.id}" class="td"></td>
+		        	<td th:text="${item.answer}" class="td"></td>
+		        	<td>
+		        		<input type="button" value="수정" th:onclick="|moveToModify(${item.id})|"/>
+		        	</td>
+		        </tr>
+		    </tbody>
+		</table>
+	</div>
+	
 	<nav style="text-align: center;">
-		<span th:text="${T(java.lang.Math).floor(answers.getContent().number/10)*10 + 1}"></span>
+		<!-- <span th:text="${T(java.lang.Math).floor(answers.getContent().number/10)*10 + 1}"></span> -->
 		<!-- <ul class="pagination" th:with="start=${T(Math).floor(answers.getContent().number/10)*10 + 1},
                     					last=(${start + 9 < answers.totalPages ? start + 9 : answers.totalPages})">
  			<th:block th:with="firstUrl=@{/answerList(page=1)},

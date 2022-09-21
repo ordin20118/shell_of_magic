@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="./common/head.html"></th:block>
+<script>
+	$(document).ready(function() {
+	
+		console.log("[Modify Answer Page]");
+	
+	});
+	
+	function getCheckedCategory() {
+	    var arr = new Array();
+	    var list = $("input[name='category']");
+	    for(var i = 0; i < list.length; i++) {
+	        if(list[i].checked) { 	
+	        	var obj = {
+	        		"categoryId": list[i].value
+	        	};	        	
+	            arr.push(obj);
+	        }
+	    }
+	    return arr;
+	}
+	
+	function sendData() {
+		
+		var answerVal = $('#inputAnswer').val();
+		
+		if(answerVal == null || answerVal == ''){
+			alert('답변을 입력해주세요.');
+			return;
+		}
+		
+		let categList = getCheckedCategory();
+		
+		let formJson = {
+				"answer": answerVal,
+				"categoryList": categList
+		};
+		formJson = JSON.stringify(formJson);
+						
+		$.ajax({
+		  type: "POST",
+		  url: "/inputAnswer",
+		  data: formJson,
+		  success: function(){
+			  alert("답변 생성 완료");
+			  location.reload();
+		  },
+		  error:function(request, status, error){
+			  alert("답변 생성 실패" + error);
+		  },
+		  contentType : "application/json"
+		});
+	}
+
+</script>
+<body style="text-align: center;">
+	<form method="post" action="#" accept-charset="utf-8">
+		<fieldset>
+			<legend>답변 입력</legend>
+			<input type="text" id="inputAnswer" name="answer" style="width:500px;"><br>
+		</fieldset>			
+		<fieldset>
+			<legend>카테고리 선택</legend>
+			<th:block th:if="${categoryList} != null and ${categoryList.size()} > 0">
+				<th:block th:each="item, index : ${categoryList}">
+					<span th:text="${item.name}"></span><input type="checkbox" name="category" th:value="${item.categoryId}"/><br>
+				</th:block>				
+			</th:block>
+			<!-- 
+			음식<input type="checkbox" name="category" value="1"/><br>
+			고민<input type="checkbox" name="category" value="1"/><br>
+			플렉스<input type="checkbox" name="category" value="1"/><br>
+			연애<input type="checkbox" name="category" value="1"/><br>
+			공통<input type="checkbox" name="category" value="1"/><br>
+			 -->
+		</fieldset>
+		<br><br>
+		<input type="button" value="생성" onclick="sendData()"/>
+		<input type="reset" value="모두 해제"/>
+	</form>
+	
+</body>
+</html>

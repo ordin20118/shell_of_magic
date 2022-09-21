@@ -1,20 +1,21 @@
 package com.shellofmagic.web.service;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.shellofmagic.web.controller.param.AnswerParam;
-import com.shellofmagic.web.dao.AnswerCategoryDto;
+import com.shellofmagic.web.controller.MgrUiController;
 import com.shellofmagic.web.dao.AnswerCategoryRepository;
 import com.shellofmagic.web.dao.AnswerDto;
 import com.shellofmagic.web.dao.AnswerRepository;
-import com.shellofmagic.web.dao.CategoryDto;
 import com.shellofmagic.web.dao.CategoryRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class WebService {
 	
@@ -33,5 +34,13 @@ public class WebService {
 		return resData;
 	}
 	
-	
+	public AnswerDto getAnswer(Integer id) {
+		Optional<AnswerDto> resData = answerRepoitory.findById(id);
+		if(resData.isPresent()) {
+			return resData.get();
+		} else {
+			return null;
+		}
+	}
+		
 }

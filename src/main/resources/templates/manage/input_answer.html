@@ -15,7 +15,7 @@
 	    for(var i = 0; i < list.length; i++) {
 	        if(list[i].checked) { 	
 	        	var obj = {
-	        		"categoryId": list[i].value
+	        		"id": list[i].value
 	        	};	        	
 	            arr.push(obj);
 	        }
@@ -42,7 +42,7 @@
 						
 		$.ajax({
 		  type: "POST",
-		  url: "/inputAnswer",
+		  url: "/api/inputAnswer",
 		  data: formJson,
 		  success: function(){
 			  alert("답변 생성 완료");
@@ -68,7 +68,7 @@
 			<legend>카테고리 선택</legend>
 			<th:block th:if="${categoryList} != null and ${categoryList.size()} > 0">
 				<th:block th:each="item, index : ${categoryList}">
-					<span th:text="${item.name}"></span><input type="checkbox" name="category" th:value="${item.categoryId}"/><br>
+					<span th:text="${item.name}"></span><input type="checkbox" name="category" th:value="${item.id}"/><br>
 				</th:block>				
 			</th:block>
 			<!-- 

@@ -17,7 +17,7 @@ public class CategoryDto {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer	categoryId;
+	private Integer	id;
 	private String 	name;
 	@CreationTimestamp
 	private Date	regDate;

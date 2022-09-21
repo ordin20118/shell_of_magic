@@ -1,6 +1,5 @@
 package com.shellofmagic.web.controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +9,18 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.shellofmagic.web.dao.AnswerDto;
 import com.shellofmagic.web.dao.CategoryDto;
 import com.shellofmagic.web.service.ManageService;
 import com.shellofmagic.web.service.WebService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
-public class UiController {
+public class MgrUiController {
 	
 	@Autowired
 	ManageService manageService;
@@ -26,25 +29,20 @@ public class UiController {
 	WebService webService;
 	
 	@GetMapping(value = {"/", "/home"})
-	public String index(Model model) {
-		
-		System.out.println(LocalDateTime.now());
-		
-		List<AnswerDto> answerList = manageService.getAll();
-		System.out.println(answerList);
-		return "index";
+	public String index(Model model) {		
+		return "/manage/index";
 	}
 	
 	@GetMapping(value = {"/inputAnswer"})
 	public String inputAnswer(Model model) {
 		List<CategoryDto> allCategory = manageService.getAllCategory();
 		model.addAttribute("categoryList", allCategory);
-		return "input_answer";
+		return "/manage/input_answer";
 	}	
 	
 	@GetMapping(value = {"/inputCategory"})
 	public String inputCategory(Model model) {
-		return "input_category";
+		return "/manage/input_category";
 	}
 	
 	@GetMapping(value = {"/answerList"})
@@ -53,6 +51,20 @@ public class UiController {
 		model.addAttribute("answers", answers);
 		System.out.println(answers);
 		System.out.println(answers.getContent());
-		return "list_answer";
+		return "/manage/list_answer";
+	}
+
+	@GetMapping(value = {"/modifyAnswer/{answerId}"})
+	public String modifyAnswer(@PathVariable Integer answerId, Model model) {
+		
+		// set category
+		List<CategoryDto> allCategory = manageService.getAllCategory();
+		model.addAttribute("categoryList", allCategory);
+		
+		// set answer
+		AnswerDto answer = webService.getAnswer(answerId);
+		model.addAttribute("answer", answer);
+		
+		return "/manage/modify_answer";
 	}
 }
