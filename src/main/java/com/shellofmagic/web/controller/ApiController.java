@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +24,7 @@ import com.shellofmagic.web.controller.param.AnswerParam;
 import com.shellofmagic.web.dao.AnswerDto;
 import com.shellofmagic.web.dao.CategoryDto;
 import com.shellofmagic.web.service.ManageService;
+import com.shellofmagic.web.service.WebService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,6 +35,9 @@ public class ApiController {
 	
 	@Autowired
 	ManageService manageService;
+	
+	@Autowired
+	WebService webService;
 	
 	@Transactional(propagation=Propagation.REQUIRED, rollbackFor={Exception.class})
 	@PostMapping("/answers")
@@ -64,7 +69,7 @@ public class ApiController {
 	}
 	
 	@GetMapping("/answers/{answerId}")
-	public ResponseEntity<String> getAnswerList(@PathVariable Integer answerId) {
+	public ResponseEntity<String> getAnswer(@PathVariable Integer answerId) {
 		
 		String resString = "{}";
 		HttpStatus resStatus = HttpStatus.OK;	
@@ -76,6 +81,24 @@ public class ApiController {
 		} catch (JsonProcessingException e) {
 			resStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 			log.error("[Get Answer Error]:"+e.getMessage());
+		}
+		
+		return new ResponseEntity<String>(resString, resStatus);	
+	}
+	
+	@GetMapping("/answers/random")
+	public ResponseEntity<String> getAnswerRandom(@RequestParam(name = "categId", required = false) Integer categId) {
+		
+		String resString = "{}";
+		HttpStatus resStatus = HttpStatus.OK;	
+		ObjectMapper mapper = ObjectMapperInstance.getInstance().getMapper();		
+		
+		try {
+			AnswerDto answer = webService.getRandomAnswer(categId);
+			resString = mapper.writeValueAsString(answer);
+		} catch (JsonProcessingException e) {
+			resStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+			log.error("[Get Answer Random Error]:"+e.getMessage());
 		}
 		
 		return new ResponseEntity<String>(resString, resStatus);	

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.shellofmagic.web.dao.AnswerDto;
 import com.shellofmagic.web.dao.CategoryDto;
@@ -20,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@RequestMapping("mgr")
 public class MgrUiController {
 	
 	@Autowired
