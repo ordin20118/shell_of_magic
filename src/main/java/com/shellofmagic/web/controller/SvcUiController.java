@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.shellofmagic.web.dao.AnswerDto;
 import com.shellofmagic.web.dao.CategoryDto;
@@ -31,8 +32,19 @@ public class SvcUiController {
 	WebService webService;
 	
 	@GetMapping(value = {"/", "/home"})
-	public String index(Model model) {		
+	public String index(Model model) {
+		
+		List<CategoryDto> allCategory = manageService.getAllCategory();
+		model.addAttribute("categoryList", allCategory);
+		
 		return "/svc/index";
+	}
+
+	@GetMapping(value = {"/play"})
+	public String play(@RequestParam(name="") Integer categId, Model model) {
+		CategoryDto categ = webService.getCategory(categId);
+		model.addAttribute("category", categ);
+		return "/svc/play";
 	}
 	
 }

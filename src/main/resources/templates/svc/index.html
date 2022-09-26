@@ -1,40 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="./common/head.html"></th:block>
+<th:block th:replace="./svc/common/head.html"></th:block>
 
 <script>
 
-	// 카테고리 조회
-	
-	// 
-
-	function test() {
-		alert('test');
-	}
 </script>
 
 <!-- <body class="col-xs-8 col-sm-6 col-md-4 col-lg-3" style="text-align: center; background-color: #1E0010;"> -->
 <body class="container-fluid shell-body" style="text-align: center;">
-	
 	<div class="row" style="vertical-align: center;">
-	
 		<div class="col-xs-12 col-sm-12 col-md-12" style="padding: 5rem;">
-			<span style="font-size: 3.5rem; color: #DFBE6A">고민의 종류를 선택하세요</span>
-			
+			<span style="font-size: 3.5rem; color: #EFEFE4">고민의 종류를 선택하세요.</span>
 		</div>
-		
 	</div>
 	
 	<div class="row" style="vertical-align: center;">
 		<div class="col-xs-12 col-sm-12 col-md-12">
-			<a class="shell-btn" href="javascript:test();">연애</a></br>
-			<a class="shell-btn" href="#">학업</a></br>
-			<a class="shell-btn" href="#">공통</a></br>
+			<th:block th:if="${categoryList} != null and ${categoryList.size()} > 0">
+				<th:block th:each="item, index : ${categoryList}">
+					<a class="shell-btn" th:href="@{/page/play(categId=${item.id})}" th:text="${item.name}"></a></br>
+				</th:block>				
+			</th:block>
 		</div>
-		
 	</div>
-	
-	
 </body>
 </html>

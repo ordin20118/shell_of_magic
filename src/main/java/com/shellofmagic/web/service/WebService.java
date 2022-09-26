@@ -14,6 +14,7 @@ import com.shellofmagic.web.dao.AnswerCategoryDto;
 import com.shellofmagic.web.dao.AnswerCategoryRepository;
 import com.shellofmagic.web.dao.AnswerDto;
 import com.shellofmagic.web.dao.AnswerRepository;
+import com.shellofmagic.web.dao.CategoryDto;
 import com.shellofmagic.web.dao.CategoryRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -73,6 +74,14 @@ public class WebService {
 			return new AnswerDto();
 		}
 		
+	}
+	
+	public CategoryDto getCategory(Integer categId) {
+		Optional<CategoryDto> categOp = categoryRepository.findById(categId);
+		if(categOp.isPresent()) {
+			return categOp.get();
+		}
+		return null;
 	}
 		
 }
