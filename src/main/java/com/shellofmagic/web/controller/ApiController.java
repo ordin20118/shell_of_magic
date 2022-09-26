@@ -86,15 +86,18 @@ public class ApiController {
 		return new ResponseEntity<String>(resString, resStatus);	
 	}
 	
-	@GetMapping("/answers/random")
-	public ResponseEntity<String> getAnswerRandom(@RequestParam(name = "categId", required = false) Integer categId) {
+	@PostMapping("/answers/random")
+	public ResponseEntity<String> getAnswerRandom(@RequestParam(name = "categId", required = false) Integer categId,
+												  @RequestBody AnswerParam param) {
 		
 		String resString = "{}";
 		HttpStatus resStatus = HttpStatus.OK;	
 		ObjectMapper mapper = ObjectMapperInstance.getInstance().getMapper();		
 		
+		log.info("[getAnswerRandom() categId:"+categId+"-" + param);
+		
 		try {
-			AnswerDto answer = webService.getRandomAnswer(categId);
+			AnswerDto answer = webService.getRandomAnswer(categId, param.getQuestion());
 			resString = mapper.writeValueAsString(answer);
 		} catch (JsonProcessingException e) {
 			resStatus = HttpStatus.INTERNAL_SERVER_ERROR;

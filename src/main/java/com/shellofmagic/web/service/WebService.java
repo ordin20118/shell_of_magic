@@ -47,7 +47,7 @@ public class WebService {
 		}
 	}
 	
-	public AnswerDto getRandomAnswer(Integer categId) {
+	public AnswerDto getRandomAnswer(Integer categId, String question) {
 		
 		log.info("[getRandomAnswer]:" + categId);
 		
@@ -59,14 +59,9 @@ public class WebService {
 			total = answerCategoryRepository.getCountByCateg(categId);
 		}
 		
-		log.info("[TOTAL]:" + total);
-		
 		int idx = (int)(Math.random() * total);
 		
-		log.info("[Random IDX]:" + idx);
-		
-		Page<AnswerCategoryDto> acPaging = answerCategoryRepository.findAll(PageRequest.of(idx, 1));
-		List<AnswerCategoryDto> acList = acPaging.getContent();
+		List<AnswerCategoryDto> acList = answerCategoryRepository.getAllByCateg(categId, PageRequest.of(idx, 1));
 		
 		if(acList != null && acList.size() > 0) {
 			return answerRepoitory.findById(acList.get(0).getAnswerId()).orElse(null);	

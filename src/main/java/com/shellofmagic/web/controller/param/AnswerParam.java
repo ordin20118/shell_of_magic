@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 public class AnswerParam {
 	
+	private String question;
 	private String answer;
 	private List<CategoryDto> categoryList;
 

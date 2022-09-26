@@ -4,39 +4,141 @@
 <th:block th:replace="./svc/common/head.html"></th:block>
 
 <script>
+	
+	var upIcon = 0;
+	var downIcon = 0;
+	var isChecked = false;
+	
+	$(document).ready(function() {
+		
+	    $('#upIcon').on('click',function(){	        
+	    	if(!isChecked){
+	    		if(upIcon == 0) {
+		            $(this).attr('class','bi-hand-thumbs-up-fill');
+		            upIcon++;
+		        } else if(upIcon == 1) {
+		            $(this).attr('class','bi-hand-thumbs-up');
+		            upIcon--;
+		        }	
+	    		isChecked = true;
+	    	}	    	
+	    });	    
+	   
+	    $('#downIcon').on('click',function(){
+	    	if(!isChecked){
+	    		if(downIcon == 0) {
+		            $(this).attr('class','bi-hand-thumbs-down-fill');
+		            downIcon++;
+		        } else if(downIcon == 1) {
+		            $(this).attr('class','bi-hand-thumbs-down');
+		            downIcon--;
+		        }	
+	    	}	  
+	    	isChecked = true;
+	    });	
+	});
+
+
+	function requestAnswer() {
+		
+		var question = $('#inputQuestion').val();		
+		let formJson = {
+				"question": question
+		};
+		formJson = JSON.stringify(formJson);
+		
+		var categId = getUrlParam('categId');		
+		if(categId == null) {
+			categId = 4;
+		}
+		
+		var url = "/api/answers/random?categId=" + categId;
+		
+		$.ajax({
+		  type: "POST",
+		  url: url,
+		  data: formJson,
+		  success: function(data){		
+			  showAnswer(data);			  
+		  },
+		  error:function(request, status, error){
+			  alert("답변 수신 실패" + error);
+		  },
+		  contentType : "application/json"
+		});
+	}
+	
+	function hideAnswer() {
+		$('#answerBox').attr('class', 'fade-out-box');
+		$('#answerBox').hide();
+	}
+	
+	function showAnswer(data) {
+
+		var dataJson = JSON.parse(data);
+				
+		// fade-out
+		$('#magicBallImg').attr('class', 'fade-out-box');
+		setTimeout(() => $('#magicBallImg').hide(), 1000);
+		
+		// fade-in
+		setTimeout(() => $('#answerBox').show(), 1000);
+		setTimeout(() => $('#btnBox').show(), 2000);
+		$('#answerText').html(dataJson['answer']);		
+		$('#answerBox').attr('class', 'fade-in-box');
+		$('#btnBox').attr('class', 'fade-in-box');		
+	}
+	
 
 </script>
 
 <!-- <body class="col-xs-8 col-sm-6 col-md-4 col-lg-3" style="text-align: center; background-color: #1E0010;"> -->
 <body class="container-fluid shell-body" style="text-align: center;">
-	
-	<div class="row" style="vertical-align: center;">
-	
-		<div class="col-xs-12 col-sm-12 col-md-12" style="padding: 5rem;">
-			<!-- 
-			<span style="font-size: 2.5rem; color: #EFEFE4" th:text="|고민을 아래의 입력란에 입력하거나 생각하시고|"></span><br>
-			<span style="font-size: 2.5rem; color: #EFEFE4">고민 해결 상자를 두드려 주세요.</span>
-			 -->
-			<br>
-				
-			<!-- DFBE6A cbb74d -->		
-			<blockquote style="font-size: 2.5rem; color:#DFBE6A; font-weight: bold;">
-				<br><br>
-				<div>
-					마찰 없이 보석을 광나게 할 수 없듯 시련 없이 사람을 완전하게 할수 없다.
-				</div>
-			</blockquote>	
-		</div>
-		
-	</div>
-	
-	<div class="row" style="vertical-align: center;">
-		<div class="col-xs-12 col-sm-12 col-md-12">
+	<br><br><br><br>
+	<div class="row" style="vertical-align: center; padding: 0rem 5rem 0rem 5rem;">	
+		<div class="col-xs-12 col-sm-12 col-md-12">			 
+			<span style="font-size: 2.2rem; color: #EFEFE4" th:text="|고민을 아래의 입력란에 입력하거나 생각하시고|"></span><br>
+			<span style="font-size: 2.2rem; color: #EFEFE4" th:text="|고민 해결 구슬을 눌려 주세요.|"></span>
 			
-		</div>
-		
+			<br><br><br>
+			
+			<div class="input-group mb-3">
+  				<input id="inputQuestion" type="text" class="form-control" placeholder="고민을 입력해주세요." maxlength="300" aria-label="고민을 입력해주세요." aria-describedby="basic-addon2">
+  			</div>				
+		</div>				
 	</div>
 	
+	<br><br>
+	
+	<div class="row" style="vertical-align: center; padding: 0rem 5rem 0rem 5rem;">
+		<div class="col-xs-12 col-sm-12 col-md-12">
+			<img id="magicBallImg" src="/img/magicball.png" onclick="requestAnswer()" style="width: 10rem; height: 10rem;"/>
+		</div>
+	</div>
+	
+	<div id="answerBox" class="row" style="vertical-align: center; display: none;">
+		<div class="col-xs-12 col-sm-12 col-md-12">
+			<!-- DFBE6A cbb74d -->		
+			<blockquote style="width: 70vw; font-size: 2.5rem; color:#DFBE6A; font-weight: bold;">
+				<br><br>
+				<div id="answerText">					
+				</div>
+			</blockquote>
+		</div>		
+	</div>
+	
+	<br><br>
+	
+	<div id="btnBox" class="row" style="vertical-align: center; display: none; margin-top: 1.0rem;">
+		<div class="col-xs-12 col-sm-12 col-md-12" style="margin-bottom: 1.5rem;">
+			<i id="upIcon" class="bi bi-hand-thumbs-up" style="margin: 0 2rem 0 0; font-size: 3.5rem; color:#EFEFE4"></i>
+			<i id="downIcon" class="bi bi-hand-thumbs-down" style="margin: 0 0rem 0 2rem; font-size: 3.5rem; color:#EFEFE4"></i>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-12" style="margin-top: 1rem;">			
+			<a class="shell-btn" href="/page/home">홈으로</a>
+			<a class="shell-btn" href="javascript:location.reload();">한 번 더</a>
+		</div>
+	</div>
 	
 </body>
 </html>
