@@ -5,7 +5,7 @@
 <script>
 	$(document).ready(function() {
 	
-		console.log("[Input Anser Page]");
+		console.log("[Modify Answer Page]");
 	
 	});
 	
@@ -15,7 +15,7 @@
 	    for(var i = 0; i < list.length; i++) {
 	        if(list[i].checked) { 	
 	        	var obj = {
-	        		"id": list[i].value
+	        		"categoryId": list[i].value
 	        	};	        	
 	            arr.push(obj);
 	        }
@@ -42,14 +42,14 @@
 						
 		$.ajax({
 		  type: "POST",
-		  url: "/api/inputAnswer",
+		  url: "/modifyAnswer",
 		  data: formJson,
 		  success: function(){
-			  alert("답변 생성 완료");
+			  alert("답변 수정 완료");
 			  location.reload();
 		  },
 		  error:function(request, status, error){
-			  alert("답변 생성 실패" + error);
+			  alert("답변 수정 실패" + error);
 		  },
 		  contentType : "application/json"
 		});
@@ -57,20 +57,24 @@
 
 </script>
 <body style="text-align: center;">
-	마법의 소라고동이 답변할 문장을 입력하고<br>
-	카테고리를 선택해주세요.
 	<form method="post" action="#" accept-charset="utf-8">
 		<fieldset>
 			<legend>답변 입력</legend>
-			<input type="text" id="inputAnswer" name="answer" style="width:500px;"><br>
+			<input type="text" th:value="${answer.answer}" id="inputAnswer" name="answer" style="width:500px;"><br>
 		</fieldset>			
 		<fieldset>
 			<legend>카테고리 선택</legend>
 			<th:block th:if="${categoryList} != null and ${categoryList.size()} > 0">
-				<th:block th:each="item, index : ${categoryList}">
-					<span th:text="${item.name}"></span><input type="checkbox" name="category" th:value="${item.id}"/><br>
-				</th:block>				
+				<th:block th:each="item, index : ${categoryList}">					
+					<th:block th:if="${#lists.contains(mappedCategIds, item.id)}">
+						<span th:text="${item.name}"></span><input type="checkbox" name="category" th:value="${item.id}" checked/><br>
+					</th:block>		
+					<th:block th:unless="${#lists.contains(mappedCategIds, item.id)}">
+						<span th:text="${item.name}"></span><input type="checkbox" name="category" th:value="${item.id}"/><br>
+					</th:block>															
+				</th:block>
 			</th:block>
+						
 			<!-- 
 			음식<input type="checkbox" name="category" value="1"/><br>
 			고민<input type="checkbox" name="category" value="1"/><br>

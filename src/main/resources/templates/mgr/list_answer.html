@@ -12,7 +12,7 @@
 	
 
 </script>
-<body style="text-align: center; padding: 25px;">
+<body style="text-align: center;">
 
 	<div>
 		<div style="text-align: right;">
@@ -27,7 +27,7 @@
 		            <th colspan="1"></th>
 		        </tr>
 		    </thead>
-		    <tbody>
+		    <tbody th:if="${answers} != null">
 		        <tr th:each="item : ${answers}" class="tr">
 		        	<td th:text="${item.id}" class="td"></td>
 		        	<td th:text="${item.answer}" class="td"></td>
@@ -36,6 +36,14 @@
 		        	</td>
 		        </tr>
 		    </tbody>
+		    <tbody th:if="${answers} == null">		       
+		        <tr>
+		        	<td colspan="5">
+		        		등록된 답변이 없습니다.
+		        	</td>		        	
+		        </tr>
+		    </tbody>
+		    
 		</table>
 	</div>
 	

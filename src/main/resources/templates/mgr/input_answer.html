@@ -5,7 +5,7 @@
 <script>
 	$(document).ready(function() {
 	
-		console.log("[Modify Answer Page]");
+		console.log("[Input Anser Page]");
 	
 	});
 	
@@ -15,7 +15,7 @@
 	    for(var i = 0; i < list.length; i++) {
 	        if(list[i].checked) { 	
 	        	var obj = {
-	        		"categoryId": list[i].value
+	        		"id": list[i].value
 	        	};	        	
 	            arr.push(obj);
 	        }
@@ -42,7 +42,7 @@
 						
 		$.ajax({
 		  type: "POST",
-		  url: "/inputAnswer",
+		  url: "/api/answers",
 		  data: formJson,
 		  success: function(){
 			  alert("답변 생성 완료");
@@ -57,6 +57,8 @@
 
 </script>
 <body style="text-align: center;">
+	마법의 소라고동이 답변할 문장을 입력하고<br>
+	카테고리를 선택해주세요.
 	<form method="post" action="#" accept-charset="utf-8">
 		<fieldset>
 			<legend>답변 입력</legend>
@@ -66,7 +68,7 @@
 			<legend>카테고리 선택</legend>
 			<th:block th:if="${categoryList} != null and ${categoryList.size()} > 0">
 				<th:block th:each="item, index : ${categoryList}">
-					<span th:text="${item.name}"></span><input type="checkbox" name="category" th:value="${item.categoryId}"/><br>
+					<span th:text="${item.name}"></span><input type="checkbox" name="category" th:value="${item.id}"/><br>
 				</th:block>				
 			</th:block>
 			<!-- 

@@ -1,5 +1,7 @@
 
-
+function moveToHome() {
+	location.href = "/mgr/home";
+}
 
 function moveToInputAnswer() {
 	location.href = "/mgr/inputAnswer";
@@ -7,4 +9,8 @@ function moveToInputAnswer() {
 
 function moveToModify(answerId) {
 	location.href = "/mgr/modifyAnswer/" + answerId;
+}
+
+function moveToBack() {
+	
 }
