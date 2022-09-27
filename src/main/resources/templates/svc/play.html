@@ -127,7 +127,7 @@
 </script>
 
 <!-- <body class="col-xs-8 col-sm-6 col-md-4 col-lg-3" style="text-align: center; background-color: #1E0010;"> -->
-<body class="container-fluid shell-body" style="text-align: center; overflow: hidden;">
+<body class="container-fluid shell-body" style="text-align: center; overflow: auto;">
 
 	<div class="row" style="vertical-align: center; padding: 0rem 5rem 0rem 5rem;">	
 		<div class="col-xs-12 col-sm-12 col-md-12">			 
@@ -168,6 +168,21 @@
 		<div class="col-xs-12 col-sm-12 col-md-12" style="margin-top: 1rem;">			
 			<a class="shell-btn" href="/page/home">홈으로</a>
 			<a class="shell-btn" href="javascript:location.reload();">한 번 더</a>
+		</div>
+	</div>
+	
+	<div id="shareBox" class="row" style="vertical-align: center; display: block; margin-top: 1.0rem;">
+		<div class="col-xs-12 col-sm-12 col-md-12" style="margin-bottom: 1.5rem;">
+			<!-- 
+			<a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();"></a>
+			<a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();"></a> 
+			-->   
+			<a alt="페이스북 공유" style="margin: auto; width: 2.7rem; height: 2.7rem; border-radius:50%"><img src="/img/icon-facebook.png"></a>
+			
+			<!-- <a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();">카카오</a> -->    
+			<a class="circle" onclick="copyClip()">
+				<i class="bi bi-link-45deg" style="font-size: 1.8rem; color: #660058;"></i>
+			</a>
 		</div>
 	</div>
 	
