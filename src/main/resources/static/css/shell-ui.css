@@ -1,9 +1,13 @@
 @charset "EUC-KR";
 
+.link-icon { width: 3rem; position: relative; display: inline-block; font-weight: 500; color: #ffffff; margin-right: 1.0rem; padding-top: 3rem; }
+.link-icon.twitter { background-image: url(/img/icon-twitter.png); background-repeat: no-repeat; }
+.link-icon.facebook { background-image: url(/img/icon-facebook.png); background-repeat: no-repeat; } 
+.link-icon.kakao { background-image: url(/img/icon-kakao.png); background-repeat: no-repeat; }
 
 .circle{
-	width: 4rem;
-	height: 4rem;
+	width: 2.5rem;
+	height: 2.5rem;
 	border-radius: 50%;
 	background: #D5D5D5;
 	display: inline-block;
@@ -97,6 +101,8 @@ article {
   height: 90vh;
 }
 
+
+/*	animation	*/
 
 .fade-out-box {
   display: inline-block;
