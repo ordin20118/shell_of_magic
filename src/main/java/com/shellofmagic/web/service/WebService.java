@@ -1,5 +1,6 @@
 package com.shellofmagic.web.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,8 @@ import com.shellofmagic.web.dao.AnswerDto;
 import com.shellofmagic.web.dao.AnswerRepository;
 import com.shellofmagic.web.dao.CategoryDto;
 import com.shellofmagic.web.dao.CategoryRepository;
+import com.shellofmagic.web.dao.PlayLogDto;
+import com.shellofmagic.web.dao.PlayLogRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,6 +31,9 @@ public class WebService {
 	
 	@Autowired
 	private CategoryRepository categoryRepository;
+	
+	@Autowired
+	private PlayLogRepository playLogRepository;
 	
 	@Autowired
 	private AnswerCategoryRepository answerCategoryRepository;
@@ -77,6 +83,11 @@ public class WebService {
 			return categOp.get();
 		}
 		return null;
+	}
+	
+	public boolean saveLog(PlayLogDto log) {
+		playLogRepository.save(log);
+		return true;
 	}
 		
 }

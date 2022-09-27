@@ -23,6 +23,7 @@ import com.shellofmagic.web.common.ObjectMapperInstance;
 import com.shellofmagic.web.controller.param.AnswerParam;
 import com.shellofmagic.web.dao.AnswerDto;
 import com.shellofmagic.web.dao.CategoryDto;
+import com.shellofmagic.web.dao.PlayLogDto;
 import com.shellofmagic.web.service.ManageService;
 import com.shellofmagic.web.service.WebService;
 
@@ -124,6 +125,17 @@ public class ApiController {
 		}
 		
 		return new ResponseEntity<String>(resString, resStatus);	
+	}
+	
+	@PostMapping("/logs")
+	public String inputLog(@RequestBody PlayLogDto log) {		
+		try {			
+			System.out.println("[inputLog()]" + log);			
+			webService.saveLog(log);			
+			return "success";			
+		} catch(Exception e) {
+			throw e;
+		}
 	}
 
 }
