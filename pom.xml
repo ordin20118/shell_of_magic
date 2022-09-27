@@ -11,7 +11,7 @@
 	<groupId>com.shellofmagic</groupId>
 	<artifactId>web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>web</name>
 	<description>Project for Shell Of Magic</description>
 	<properties>

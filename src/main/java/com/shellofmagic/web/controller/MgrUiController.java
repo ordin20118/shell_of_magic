@@ -34,19 +34,19 @@ public class MgrUiController {
 	
 	@GetMapping(value = {"/", "/home"})
 	public String index(Model model) {		
-		return "/mgr/index";
+		return "mgr/index";
 	}
 	
 	@GetMapping(value = {"/inputAnswer"})
 	public String inputAnswer(Model model) {
 		List<CategoryDto> allCategory = manageService.getAllCategory();
 		model.addAttribute("categoryList", allCategory);
-		return "/mgr/input_answer";
+		return "mgr/input_answer";
 	}	
 	
 	@GetMapping(value = {"/inputCategory"})
 	public String inputCategory(Model model) {
-		return "/mgr/input_category";
+		return "mgr/input_category";
 	}
 	
 	@GetMapping(value = {"/answerList"})
@@ -54,7 +54,7 @@ public class MgrUiController {
 		Page<AnswerDto> answers = manageService.getAllAnswers(pageable);
 		
 		model.addAttribute("answers", answers);
-		return "/mgr/list_answer";
+		return "mgr/list_answer";
 	}
 
 	@GetMapping(value = {"/modifyAnswer/{answerId}"})
@@ -77,6 +77,6 @@ public class MgrUiController {
 		
 		log.info("[ANSWER]:"+answer);
 		
-		return "/mgr/modify_answer";
+		return "mgr/modify_answer";
 	}
 }
