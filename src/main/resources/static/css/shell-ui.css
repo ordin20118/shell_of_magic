@@ -1,6 +1,14 @@
 @charset "EUC-KR";
 
 
+.circle{
+	width: 4rem;
+	height: 4rem;
+	border-radius: 50%;
+	background: #D5D5D5;
+	display: inline-block;
+}
+
 blockquote:before {
   content: "\201C";
   font-size: 3em;

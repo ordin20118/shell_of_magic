@@ -127,11 +127,11 @@
 </script>
 
 <!-- <body class="col-xs-8 col-sm-6 col-md-4 col-lg-3" style="text-align: center; background-color: #1E0010;"> -->
-<body class="container-fluid shell-body" style="text-align: center;">
+<body class="container-fluid shell-body" style="text-align: center; overflow: auto;">
 
 	<div class="row" style="vertical-align: center; padding: 0rem 5rem 0rem 5rem;">	
 		<div class="col-xs-12 col-sm-12 col-md-12">			 
-			<span style="font-size: 2.2rem; color: #EFEFE4;" th:text="|고민을 아래의 입력란에 입력하거나 생각하시고|"></span><br>
+			<span style="font-size: 2.2rem; color: #EFEFE4;" th:text="|고민을 아래에 입력하거나 생각하시고|"></span><br>
 			<span style="font-size: 2.2rem; color: #EFEFE4;" th:text="|고민 해결 구슬을 눌려 주세요.|"></span>
 			
 			<div class="input-group mb-3" style="padding: 2rem;">
@@ -170,6 +170,18 @@
 			<a class="shell-btn" href="javascript:location.reload();">한 번 더</a>
 		</div>
 	</div>
+	
+	<div id="shareBox" class="row" style="vertical-align: center; display: block; margin-top: 1.0rem;">
+		<div class="col-xs-12 col-sm-12 col-md-12" style="margin-bottom: 1.5rem;">
+			<div class="circle">
+				<i onclick="copyClip()" class="bi bi-link-45deg" style="font-size: 3rem; color: #660058;"></i>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	
 	
 </body>
 </html>
