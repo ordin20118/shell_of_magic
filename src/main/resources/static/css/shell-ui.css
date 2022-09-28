@@ -6,8 +6,8 @@
 .link-icon.kakao { background-image: url(/img/icon-kakao.png); background-repeat: no-repeat; }
 
 .circle{
-	width: 2.5rem;
-	height: 2.5rem;
+	width: 2.4rem;
+	height: 2.4rem;
 	border-radius: 50%;
 	background: #D5D5D5;
 	display: inline-block;
@@ -31,25 +31,6 @@ blockquote:after {
   float: right;
   /*margin: -5px 10px 0px -10px;*/
   margin: 0rem 0rem 0rem 0rem;
-}
-
-
-quote-container:before {
-	content: "\201C";
-  	font-size: 3em;
-  	font-family: Georgia;
-  	color: #bcbcbc;
-  	float: left;
-  	margin: -5px 10px 0px -10px;  	
-}
-
-quote-container:after {
-	content: "\201C";
-  	font-size: 3em;
-  	font-family: Georgia;
-  	color: #bcbcbc;
-  	float: left;
-  	margin: -5px 10px 0px -10px;
 }
 
 .shell-btn {
@@ -94,10 +75,10 @@ article {
   font-family: "Helvetica Neue", Helvetica, Arials, sans;
 }
 
-.shell-body {
-  display: flex;  
-  align-items: center;
+.shell-body {  
+  display: flex;
   justify-content: center;
+  align-items: center;
   height: 90vh;
 }
 
