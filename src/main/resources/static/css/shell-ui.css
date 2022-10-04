@@ -36,6 +36,7 @@ blockquote:after {
 .shell-btn {
   display: inline-block;
   background: transparent;
+  width: 30vw;
   text-transform: uppercase;
   text-align: center;
   font-weight: 500;
