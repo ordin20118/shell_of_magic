@@ -150,12 +150,12 @@
 	</div>
 	
 	<div th:if="${category.id} == 3" class="row" style="vertical-align: center; padding: 0rem 5rem 0rem 5rem;">	
-		<div class="col-xs-12 col-sm-12 col-md-12">			 
-			<span th:if="${#dates.hour(now)} >= 15 and ${#dates.hour(now)} <= 16" style="font-size: 2.2rem; color: #EFEFE4;" th:text="|무엇을 먹으면 좋을까요?|"></span><br>
-			<span th:if="${#dates.hour(now)} > 20 and ${#dates.hour(now)} <= 23" style="font-size: 2.2rem; color: #EFEFE4;" th:text="|무엇을 먹으면 좋을까요?|"></span><br>
-			<span th:if="${#dates.hour(now)} >= 0 and ${#dates.hour(now)} < 11" style="font-size: 2.2rem; color: #EFEFE4;" th:text="|무엇을 먹으면 좋을까요?|"></span><br>
-			<span th:if="${#dates.hour(now)} >= 11 and ${#dates.hour(now)} <= 14" style="font-size: 2.2rem; color: #EFEFE4;" th:text="|오늘 점심은 무엇을 먹을까요?|"></span><br>
-			<span th:if="${#dates.hour(now)} >= 17 and ${#dates.hour(now)} <= 20" style="font-size: 2.2rem; color: #EFEFE4;" th:text="|오늘 저녁은 무엇을 먹을까요?|"></span><br>
+		<div class="col-xs-12 col-sm-12 col-md-12">	
+			<span th:if="${nowHour} >= 15 and ${nowHour} <= 16" style="font-size: 2.2rem; color: #EFEFE4;" th:text="|무엇을 먹으면 좋을까요?|"></span><br>
+			<span th:if="${nowHour} > 20 and ${nowHour} <= 23" style="font-size: 2.2rem; color: #EFEFE4;" th:text="|무엇을 먹으면 좋을까요?|"></span><br>
+			<span th:if="${nowHour} >= 0 and ${nowHour} < 11" style="font-size: 2.2rem; color: #EFEFE4;" th:text="|무엇을 먹으면 좋을까요?|"></span><br>
+			<span th:if="${nowHour} >= 11 and ${nowHour} <= 14" style="font-size: 2.2rem; color: #EFEFE4;" th:text="|오늘 점심은 무엇을 먹을까요?|"></span><br>
+			<span th:if="${nowHour} >= 17 and ${nowHour} <= 20" style="font-size: 2.2rem; color: #EFEFE4;" th:text="|오늘 저녁은 무엇을 먹을까요?|"></span><br>
 			<span style="font-size: 2.2rem; color: #EFEFE4;" th:text="|고민 해결 구슬을 눌려 주세요.|"></span><br><br><br>
 		</div>				
 	</div>

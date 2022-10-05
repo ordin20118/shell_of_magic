@@ -1,7 +1,10 @@
 package com.shellofmagic.web.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -41,10 +44,15 @@ public class SvcUiController {
 	}
 
 	@GetMapping(value = {"/play"})
-	public String play(@RequestParam(name="") Integer categId, Model model) {
+	public String play(@RequestParam(name="") Integer categId, Model model) throws ParseException {
 		CategoryDto categ = webService.getCategory(categId);
 		model.addAttribute("category", categ);
-		model.addAttribute("now", new Date());
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("HH");
+		sdf.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
+		Date now = new Date();
+		String nowHour = sdf.format(now);
+		model.addAttribute("nowHour", Integer.parseInt(nowHour));
 		return "svc/play";
 	}
 	
