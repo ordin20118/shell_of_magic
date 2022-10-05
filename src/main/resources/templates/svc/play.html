@@ -138,7 +138,7 @@
 <!-- <body class="col-xs-8 col-sm-6 col-md-4 col-lg-3" style="text-align: center; background-color: #1E0010;"> -->
 <body class="container-fluid shell-body" style="text-align: center; overflow: auto;">
 
-	<div id="questionBox" class="row" style="vertical-align: center; padding: 0rem 5rem 0rem 5rem;">	
+	<div th:if="${category.id} != 3" id="questionBox" class="row" style="vertical-align: center; padding: 0rem 5rem 0rem 5rem;">	
 		<div class="col-xs-12 col-sm-12 col-md-12">			 
 			<span style="font-size: 2.2rem; color: #EFEFE4;" th:text="|고민을 아래에 입력하거나 생각하시고|"></span><br>
 			<span style="font-size: 2.2rem; color: #EFEFE4;" th:text="|고민 해결 구슬을 눌려 주세요.|"></span>
@@ -146,6 +146,17 @@
 			<div class="input-group mb-3" style="padding: 2rem;">
   				<input id="inputQuestion" type="text" class="form-control" placeholder="고민을 입력해주세요." maxlength="300" aria-label="고민을 입력해주세요." aria-describedby="basic-addon2">
   			</div>				
+		</div>				
+	</div>
+	
+	<div th:if="${category.id} == 3" class="row" style="vertical-align: center; padding: 0rem 5rem 0rem 5rem;">	
+		<div class="col-xs-12 col-sm-12 col-md-12">			 
+			<span th:if="${#dates.hour(now)} >= 15 and ${#dates.hour(now)} <= 16" style="font-size: 2.2rem; color: #EFEFE4;" th:text="|무엇을 먹으면 좋을까요?|"></span><br>
+			<span th:if="${#dates.hour(now)} > 20 and ${#dates.hour(now)} <= 23" style="font-size: 2.2rem; color: #EFEFE4;" th:text="|무엇을 먹으면 좋을까요?|"></span><br>
+			<span th:if="${#dates.hour(now)} >= 0 and ${#dates.hour(now)} < 11" style="font-size: 2.2rem; color: #EFEFE4;" th:text="|무엇을 먹으면 좋을까요?|"></span><br>
+			<span th:if="${#dates.hour(now)} >= 11 and ${#dates.hour(now)} <= 14" style="font-size: 2.2rem; color: #EFEFE4;" th:text="|오늘 점심은 무엇을 먹을까요?|"></span><br>
+			<span th:if="${#dates.hour(now)} >= 17 and ${#dates.hour(now)} <= 20" style="font-size: 2.2rem; color: #EFEFE4;" th:text="|오늘 저녁은 무엇을 먹을까요?|"></span><br>
+			<span style="font-size: 2.2rem; color: #EFEFE4;" th:text="|고민 해결 구슬을 눌려 주세요.|"></span><br><br><br>
 		</div>				
 	</div>
 		

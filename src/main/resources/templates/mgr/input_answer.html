@@ -34,6 +34,11 @@
 		
 		let categList = getCheckedCategory();
 		
+		if(categList.length == 0) {
+			alert('카테고리를 1개 이상 선택해주세요.');
+			return;
+		}
+		
 		let formJson = {
 				"answer": answerVal,
 				"categoryList": categList

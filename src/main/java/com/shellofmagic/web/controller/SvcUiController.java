@@ -1,5 +1,6 @@
 package com.shellofmagic.web.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,7 @@ public class SvcUiController {
 	public String play(@RequestParam(name="") Integer categId, Model model) {
 		CategoryDto categ = webService.getCategory(categId);
 		model.addAttribute("category", categ);
+		model.addAttribute("now", new Date());
 		return "svc/play";
 	}
 	
