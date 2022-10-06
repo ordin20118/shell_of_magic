@@ -3,10 +3,14 @@
 
 <th:block th:replace="./mgr/common/head.html"></th:block>
 <script>
+
+	var answerId;
 	$(document).ready(function() {
 	
 		console.log("[Modify Answer Page]");
-	
+		
+		answerId = "[[${answer.id}]]";
+			
 	});
 	
 	function getCheckedCategory() {
@@ -15,7 +19,7 @@
 	    for(var i = 0; i < list.length; i++) {
 	        if(list[i].checked) { 	
 	        	var obj = {
-	        		"categoryId": list[i].value
+	        		"id": list[i].value
 	        	};	        	
 	            arr.push(obj);
 	        }
@@ -34,15 +38,21 @@
 		
 		let categList = getCheckedCategory();
 		
+		console.log(categList);
+		
 		let formJson = {
+				"answerId": answerId,
 				"answer": answerVal,
 				"categoryList": categList
 		};
+		
+		console.log(formJson);
+		
 		formJson = JSON.stringify(formJson);
 						
 		$.ajax({
-		  type: "POST",
-		  url: "/modifyAnswer",
+		  type: "PUT",
+		  url: "/api/answers",
 		  data: formJson,
 		  success: function(){
 			  alert("답변 수정 완료");
@@ -84,8 +94,8 @@
 			 -->
 		</fieldset>
 		<br><br>
-		<input type="button" value="생성" onclick="sendData()"/>
-		<input type="reset" value="모두 해제"/>
+		<input type="button" value="수정" onclick="sendData()"/>
+		<input type="reset" value="취소" onclick="moveToBack()"/>
 	</form>
 	
 </body>

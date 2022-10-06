@@ -12,5 +12,5 @@ function moveToModify(answerId) {
 }
 
 function moveToBack() {
-	
+	history.back();
 }

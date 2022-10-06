@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,6 +47,17 @@ public class ApiController {
 		try {			
 			System.out.println("[inputAnswer()]" + answerParam);			
 			manageService.saveAnswer(answerParam);			
+			return "success";			
+		} catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	@PutMapping("/answers")
+	public String modifyAnswer(@RequestBody AnswerParam answerParam) {		
+		try {			
+			System.out.println("[modifyAnswer()]" + answerParam);			
+			manageService.modifyAnswer(answerParam);			
 			return "success";			
 		} catch(Exception e) {
 			throw e;

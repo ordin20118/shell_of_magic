@@ -12,7 +12,7 @@ function moveToModify(answerId) {
 }
 
 function moveToBack() {
-	
+	history.back();
 }
 
 function shareFacebook() {

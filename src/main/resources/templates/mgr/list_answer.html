@@ -7,19 +7,136 @@
 	$(document).ready(function() {
 	
 		console.log("[Answer List Page]");
+		loadAnswerList(0, true);
 	
 	});
 	
+	var answerList = [];
+	// http://localhost:8989/api/answers?page=0&size=1&sort=regDate,DESC	
+	function loadAnswerList(page, isInit) {
+		
+		var url = "/api/answers?page="+ page +"&size=10&sort=regDate,DESC";
+		
+		$.ajax({
+		  type: "GET",
+		  url: url,
+		  success: function(data){
+			  console.log("[답변 목록 조회]");
+			  //console.log(data)
+			  printAnswerList(data, isInit);
+		  },
+		  error:function(request, status, error){
+			  alert("답변 생성 실패" + error);
+		  },
+		  contentType : "application/json"
+		});
+	}
+	
+	function printAnswerList(data, isInit) {
+		
+		if(isInit) {
+			$('#answerList').empty();
+		}
+		
+		data = JSON.parse(data);		
+		answerList = answerList.concat(data['content']);
+				
+		if(answerList.length <= 0) {
+			$('#answerList').hide();
+			$('#noAnswerList').show();
+		} else {
+			$('#answerList').show();
+			$('#noAnswerList').hide();
+		}
+		
+		
+		for(var i=0; i<data['content'].length; i++) {
+			var iData = data['content'][i];
+			console.log(iData);
+			var item = '<tr class="tr">' +
+	        		   '	<td class="td" colspan="1">'+iData['id']+'</td>' +
+	        		   '	<td class="td" colspan="2">'+iData['answer']+'</td>' +
+	        		   '	<td colspan="1">' +
+	        		   '		<input type="button" value="수정" onclick="moveToModify('+iData['id']+')"/>' +
+	        		   '	</td>' +
+	        		   '</tr>';
+			
+			$('#answerList').append(item);
+		}
+		
+		// print page
+		$('#pageNav').empty();
+		
+		var pageRange = 10;
+		var totalPages = data['total_pages'];
+		var nowPage = data['pageable']['page_number'] + 1;
+		var startPage = (Math.ceil(nowPage/pageRange)-1) * pageRange + 1;
+		console.log(startPage);
+		
+		var pages = [];		
+		for(var i=0; i<pageRange; i++) {
+			pages.push(startPage++);
+			if(startPage > totalPages) {
+				break;
+			}
+		}
+		
+		// add ul
+		var ul = '<ul id="pageUl" class="pagination justify-content-center">' +
+				 '</ul>';
+		
+		$('#pageNav').append(ul);
+				 
+		if(!data['first']) {
+			var liItem = '<li class="page-item">' +
+						 '	<a class="page-link" href="javascript:loadAnswerList('+(nowPage-2)+', true)">' +
+						 '		<span aria-hidden="true"> < </span>' +
+						 '	</a>' +
+						 '</li>';
+			$('#pageUl').append(liItem);
+		}		 
+		
+		console.log("## pages ## " + pages)
+				 
+		for(var i=0; i<pages.length; i++) {	
+			
+			var liItem;
+			if(nowPage == pages[i]) {
+				liItem = '<li class="page-item active">' +
+	 			 '	<a  class="page-link" href="javascript:loadAnswerList('+(pages[i]-1)+', true)" aria-label="First">' +
+	 			 '		<span aria-hidden="true">'+(pages[i])+'</span>' +
+	 			 '	</a>' +
+	 			 '</li>';	
+			} else {
+				liItem = '<li class="page-item">' +
+	 			 '	<a  class="page-link" href="javascript:loadAnswerList('+(pages[i]-1)+', true)" aria-label="First">' +
+	 			 '		<span aria-hidden="true">'+(pages[i])+'</span>' +
+	 			 '	</a>' +
+	 			 '</li>';
+			}
+			
+			$('#pageUl').append(liItem);
+		}
+		
+		if(!data['last']) {
+			var liItem = '<li class="page-item">' +
+						 '	<a  class="page-link" href="javascript:loadAnswerList('+(nowPage)+', true)">' +
+						 '		<span aria-hidden="true"> > </span>' +
+						 '	</a>' +
+						 '</li>';
+			$('#pageUl').append(liItem);
+		}
+		
+	}
 
 </script>
 <body style="text-align: center;">
-
 	<div>
 		<div style="text-align: right;">
 			<button type="button" onclick="moveToInputAnswer()" class="btn btn-outline-success">새로운 답변 등록하기</button>
 		</div>		
 		<br>
-		<table class="table" style="margin: auto;">
+		<table id="answerTable" class="table" style="margin: auto;">
 		    <thead class="thead-dark">
 		        <tr>
 		        	<th colspan="1">ID</th>
@@ -27,16 +144,18 @@
 		            <th colspan="1"></th>
 		        </tr>
 		    </thead>
-		    <tbody th:if="${answers} != null">
-		        <tr th:each="item : ${answers}" class="tr">
-		        	<td th:text="${item.id}" class="td"></td>
-		        	<td th:text="${item.answer}" class="td"></td>
+		    <tbody id="answerList">
+		        <!-- 
+		        <tr class="tr">
+		        	<td class="td"></td>
+		        	<td class="td"></td>
 		        	<td>
-		        		<input type="button" value="수정" th:onclick="|moveToModify(${item.id})|"/>
+		        		<input type="button" value="수정"/>
 		        	</td>
 		        </tr>
+		         -->
 		    </tbody>
-		    <tbody th:if="${answers} == null">		       
+		    <tbody id="noAnswerList">		       
 		        <tr>
 		        	<td colspan="5">
 		        		등록된 답변이 없습니다.
@@ -47,41 +166,43 @@
 		</table>
 	</div>
 	
-	<nav style="text-align: center;">
-		<!-- <span th:text="${T(java.lang.Math).floor(answers.getContent().number/10)*10 + 1}"></span> -->
-		<!-- <ul class="pagination" th:with="start=${T(Math).floor(answers.getContent().number/10)*10 + 1},
-                    					last=(${start + 9 < answers.totalPages ? start + 9 : answers.totalPages})">
- 			<th:block th:with="firstUrl=@{/answerList(page=1)},
- 							prevUrl=@{/answerList(page=${answers.number})},
- 							nextUrl=@{/answerList(page=${answers.number + 2})},
- 							lastUrl=@{/answerList(page=${answers.totalPages})}">
- 				<li>
- 					<a th:href="${firstUrl}" aria-label="First">
- 						<span aria-hidden="true">First</span>
- 					</a>
- 				</li>
- 				<li th:class="${answers.first} ? 'disables'">
- 					<a th:href="${answers.first} ? '#' : #{prevUrl}" aria-label="Previous">
- 						<span aria-hidden="true">&lt;</span>
- 					</a>
- 				</li>
- 				<li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == answers.number + 1} ? 'active'">
-                        <a th:text="${page}" th:href="@{/answerList(page=${page})}"></a>
-                    </li>
-                    다음 페이지로 
-                    <li th:class="${answers.last} ? 'disabled'">
-                        <a th:href="${answers.last} ? '#' : ${nextAddr}" aria-label="Next">
-                            <span aria-hidden="true">&gt;</span>
-                        </a>
-                    </li>
-                    맨 마지막 페이지로 이동 
-                    <li>
-                        <a th:href="${lastAddr}" aria-label="Last">
-                            <span aria-hidden="true">Last</span>
-                        </a>
-                    </li>
-			</th:block>
-		</ul> -->
-	</nav>
+	<div style="text-align: center;">
+		<nav id="pageNav" class="Page navigation" style="text-align: center;">
+			<!-- <span th:text="${T(java.lang.Math).floor(answers.getContent().number/10)*10 + 1}"></span> -->
+			<!-- <ul class="pagination" th:with="start=${T(Math).floor(answers.getContent().number/10)*10 + 1},
+	                    					last=(${start + 9 < answers.totalPages ? start + 9 : answers.totalPages})">
+	 			<th:block th:with="firstUrl=@{/answerList(page=1)},
+	 							prevUrl=@{/answerList(page=${answers.number})},
+	 							nextUrl=@{/answerList(page=${answers.number + 2})},
+	 							lastUrl=@{/answerList(page=${answers.totalPages})}">
+	 				<li>
+	 					<a th:href="${firstUrl}" aria-label="First">
+	 						<span aria-hidden="true">First</span>
+	 					</a>
+	 				</li>
+	 				<li th:class="${answers.first} ? 'disables'">
+	 					<a th:href="${answers.first} ? '#' : #{prevUrl}" aria-label="Previous">
+	 						<span aria-hidden="true">&lt;</span>
+	 					</a>
+	 				</li>
+	 				<li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == answers.number + 1} ? 'active'">
+	                        <a th:text="${page}" th:href="@{/answerList(page=${page})}"></a>
+	                    </li>
+	                    다음 페이지로 
+	                    <li th:class="${answers.last} ? 'disabled'">
+	                        <a th:href="${answers.last} ? '#' : ${nextAddr}" aria-label="Next">
+	                            <span aria-hidden="true">&gt;</span>
+	                        </a>
+	                    </li>
+	                    맨 마지막 페이지로 이동 
+	                    <li>
+	                        <a th:href="${lastAddr}" aria-label="Last">
+	                            <span aria-hidden="true">Last</span>
+	                        </a>
+	                    </li>
+				</th:block>
+			</ul> -->
+		</nav>
+	</div>
 </body>
 </html>
