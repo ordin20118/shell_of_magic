@@ -168,40 +168,6 @@
 	
 	<div style="text-align: center;">
 		<nav id="pageNav" class="Page navigation" style="text-align: center;">
-			<!-- <span th:text="${T(java.lang.Math).floor(answers.getContent().number/10)*10 + 1}"></span> -->
-			<!-- <ul class="pagination" th:with="start=${T(Math).floor(answers.getContent().number/10)*10 + 1},
-	                    					last=(${start + 9 < answers.totalPages ? start + 9 : answers.totalPages})">
-	 			<th:block th:with="firstUrl=@{/answerList(page=1)},
-	 							prevUrl=@{/answerList(page=${answers.number})},
-	 							nextUrl=@{/answerList(page=${answers.number + 2})},
-	 							lastUrl=@{/answerList(page=${answers.totalPages})}">
-	 				<li>
-	 					<a th:href="${firstUrl}" aria-label="First">
-	 						<span aria-hidden="true">First</span>
-	 					</a>
-	 				</li>
-	 				<li th:class="${answers.first} ? 'disables'">
-	 					<a th:href="${answers.first} ? '#' : #{prevUrl}" aria-label="Previous">
-	 						<span aria-hidden="true">&lt;</span>
-	 					</a>
-	 				</li>
-	 				<li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == answers.number + 1} ? 'active'">
-	                        <a th:text="${page}" th:href="@{/answerList(page=${page})}"></a>
-	                    </li>
-	                    다음 페이지로 
-	                    <li th:class="${answers.last} ? 'disabled'">
-	                        <a th:href="${answers.last} ? '#' : ${nextAddr}" aria-label="Next">
-	                            <span aria-hidden="true">&gt;</span>
-	                        </a>
-	                    </li>
-	                    맨 마지막 페이지로 이동 
-	                    <li>
-	                        <a th:href="${lastAddr}" aria-label="Last">
-	                            <span aria-hidden="true">Last</span>
-	                        </a>
-	                    </li>
-				</th:block>
-			</ul> -->
 		</nav>
 	</div>
 </body>
