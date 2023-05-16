@@ -19,7 +19,6 @@ import com.shellofmagic.web.dao.AnswerRepository;
 import com.shellofmagic.web.dao.CategoryDto;
 import com.shellofmagic.web.dao.CategoryRepository;
 
-import jdk.internal.org.jline.utils.Log;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

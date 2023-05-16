@@ -1,5 +1,7 @@
 package com.shellofmagic.web.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -100,8 +102,9 @@ public class ApiController {
 	}
 	
 	@PostMapping("/answers/random")
-	public ResponseEntity<String> getAnswerRandom(@RequestParam(name = "categId", required = false) Integer categId,
-												  @RequestBody AnswerParam param) {
+	public ResponseEntity<String> getAnswerRandom(@RequestParam(name = "categId", required = false) Integer categId
+												  , @RequestBody AnswerParam param
+												  , HttpServletRequest request) {
 		
 		String resString = "{}";
 		HttpStatus resStatus = HttpStatus.OK;	
@@ -110,7 +113,7 @@ public class ApiController {
 		log.info("[getAnswerRandom() categId:"+categId+"-" + param);
 		
 		try {
-			AnswerDto answer = webService.getRandomAnswer(categId, param.getQuestion());
+			AnswerDto answer = webService.getRandomAnswer(request, categId, param.getQuestion());
 			resString = mapper.writeValueAsString(answer);
 		} catch (JsonProcessingException e) {
 			resStatus = HttpStatus.INTERNAL_SERVER_ERROR;
