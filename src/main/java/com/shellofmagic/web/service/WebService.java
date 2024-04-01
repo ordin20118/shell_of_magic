@@ -88,6 +88,10 @@ public class WebService {
 	            ip = request.getRemoteAddr();
 	        }
 	        
+	        if(question == null) {
+	        	question = "";
+	        }
+	        
 			answerLogRepository.save(AnswerLogDto.builder()
 					.ip(ip)
 					.client(client)

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="./svc/common/head.html"></th:block>
+
+<script>
+	
+	$(document).ready(function() {
+		
+		
+	});
+</script>
+
+<style>
+ @media (max-width: 767.98px) {
+     .container {
+         max-width: 100%;
+     }
+ }
+</style>
+
+<body>
+
+  <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <!-- 제목 텍스트 -->
+                <h1>제목 텍스트</h1>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <!-- 이미지 -->
+                <img src="/img/fools/fools1.jpeg" class="img-fluid" alt="이미지" style="max-width: 100%;">
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col">
+                <!-- 첫 번째 버튼 -->
+                <button class="btn btn-primary btn-block">첫 번째 버튼</button>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <!-- 두 번째 버튼 -->
+                <button class="btn btn-secondary btn-block">두 번째 버튼</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 부트스트랩 JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,31 @@ public class SvcUiController {
 		String nowHour = sdf.format(now);
 		model.addAttribute("nowHour", Integer.parseInt(nowHour));
 		return "svc/play";
+	}
+	
+	@GetMapping(value = {"/wedding"})
+	public String wedding(Model model) throws ParseException {
+		Random random = new Random();
+        int randNum = random.nextInt(13) + 1; 
+		
+        
+        String imagePath = "";
+        
+        if(randNum >= 9) {
+        	imagePath = "/img/fools/fools"+randNum+".gif";
+        } else {
+        	imagePath = "/img/fools/fools"+randNum+".jpeg";	
+        }
+        
+        
+        model.addAttribute("imagePath", imagePath);
+		
+		return "svc/wedding";
+	}
+	
+	@GetMapping(value = {"/more"})
+	public String more(Model model) throws ParseException {
+		return "svc/more";
 	}
 	
 }

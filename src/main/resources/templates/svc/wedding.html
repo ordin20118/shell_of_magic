@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="./svc/common/head_wedding.html"></th:block>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container-fluid {
+            padding: 0;
+            margin: 0;
+        }
+
+        .content {
+            padding: 1rem;
+        }
+
+        .btn-container {
+            text-align: center;
+            padding: 1rem;
+        }
+        @media (max-width: 767.98px) {
+		     .container {
+		         max-width: 100%;
+		     }
+ 		}
+</style>
+<script>
+	
+	 
+	$(document).ready(function() {
+		
+	});
+
+
+	function whyClick() {
+		alert('이걸 왜 눌려!');
+	}
+	
+	function hideAnswer() {
+		$('#answerBox').attr('class', 'fade-out-box');
+		$('#answerBox').hide();
+	}
+	
+	function showAnswer(data) {
+
+		var dataJson = JSON.parse(data);
+		answer = dataJson;	
+		
+		// fade-out
+		$('#magicBallImg').attr('class', 'fade-out-box');
+		$('#questionBox').attr('class', 'fade-out-box');
+		setTimeout(() => $('#magicBallImg').hide(), 1000);
+		setTimeout(() => $('#questionBox').hide(), 1000);
+		
+		// fade-in		
+		setTimeout(() => $('#answerBox').show(), 1000);
+		setTimeout(() => $('#questionText').show(), 1000);
+		setTimeout(() => $('#btnBox').show(), 2000);
+		setTimeout(() => $('#shareBox').show(), 2000);
+		$('#questionText').html($('#inputQuestion').val());
+		$('#questionText').attr('class', 'fade-in-box');
+		$('#answerText').html(dataJson['answer']);
+		$('#answerBox').attr('class', 'fade-in-box');		
+		$('#btnBox').attr('class', 'fade-in-box');		
+		$('#shareBox').attr('class', 'fade-in-box');
+		
+		
+	}
+	
+	function goToMorePage() {
+		window.location.href = "/page/more";
+	}
+	
+	
+
+</script>
+
+<!-- <body class="col-xs-8 col-sm-6 col-md-4 col-lg-3" style="text-align: center; background-color: #1E0010;"> -->
+<body class="shell-body">
+
+	<div class="container-fluid" style="text-align: center; overflow: auto;">
+	
+		<br>
+		<div id="questionBox" class="row">	
+			<div class="col-12">			 
+				<span style="font-size: 5vw; color: #EFEFE4;" th:text="|만우절이지롱|"></span><br>
+			</div>				
+		</div>
+		<br>
+		<div class="row" style="padding: 0rem 5rem 0rem 5rem;">
+			<div class="col-12">
+				<!-- <img id="magicBallImg" th:src="${imagePath}" onclick="whyClick()" style="width: calc(60vw); height: calc(60vw);"/> -->
+				<img id="magicBallImg" class="img-fluid" th:src="${imagePath}" onclick="whyClick()" style="max-width: 100%; min-width: 80%"/>
+				
+			</div>
+		</div>
+			
+		<div id="btnBox" class="row" style="margin-top: 0.0rem;">
+			<div class="col-12" style="margin-top: 1rem;">			
+				<a class="shell-btn" onclick="copyClip();" style="width: 60%; font-size: 3vw;">나도 속이기</a>
+			</div>
+			<div class="col-12" style="margin-top: 1rem;">			
+				<a class="shell-btn" href="/page/more" style="width: 60%; font-size: 3vw;">더 재밌는 장난</a>
+			</div>
+			<div class="col-12" style="margin-top: 1rem;">			
+				<a class="shell-btn" href="/" style="width: 60%; font-size: 3vw;">마법의 고민 해결 구슬</a>
+			</div>
+		</div>
+		<br>
+		<div id="shareBox" class="row" style="display:none; margin-top: 1.0rem;">
+			<div class="col-xs-12 col-sm-12 col-md-12">
+				<a alt="페이스북 공유" style="margin: 0rem 0.6rem 0rem 0rem; width: 2.7rem; height: 2.7rem; border-radius:50%"><img src="/img/icon-facebook.png"></a>
+				<a alt="트위터 공유" style="margin: 0rem 0.6rem 0rem 0rem; width: 2.7rem; height: 2.7rem; border-radius:50%"><img src="/img/icon-twitter.png"></a>			
+				<!-- <a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();">카카오</a> -->  
+				<a alt="링크복사하기" onclick="copyClip()">
+					<span role="img" aria-label="link" class="circle">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="#660058" class="bi bi-link-45deg" viewBox="-2 -2 20 20">
+							<path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+							<path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/>
+						</svg>					
+					</span>
+				</a>
+			</div>
+		</div>
+	</div>
+<th:block th:replace="./svc/common/footer.html"></th:block>	
+</body>
+</html>
